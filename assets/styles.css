@@ -14,6 +14,11 @@ body{
     grid-gap: 5px;
 }
 
+a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
 #navigation-bar{
     grid-column: 1/-1;
     grid-row: 1/2;
