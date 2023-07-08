@@ -27,8 +27,8 @@ Well, the output was <b>-2147483648</b>, which is minimum value of int data type
 <b>The int datatype's supported value ranges between -2<sup>31</sup> to 2<sup>31</sup>-1.</b><br><br>
 So what went wrong here?
 <br><br>
-In the original code, when we were adding up the elements, <b>the RHS has a long variable in the expression hence int i undergoes a widening primitive conversion to long</b> for each iteration.<br>
-However, in the second example, <b>the lambda expression parameters a and b are both integers, and the intermediate result is stored in an integer as well</b>, effectively causing overflow on exceeding the maximum limit of 32-bit for int data type.
+In the original code, when we were adding up the elements, <b>the RHS has a long variable in the expression hence int i undergoes a widening primitive conversion to long</b> for each iteration.(jls-5.6.2)<br>
+However, in the second example, <b>the lambda expression parameters a and b are both integers, and the intermediate result is stored in an integer as well</b>, effectively causing overflow on exceeding the maximum limit of 32-bit for int data type. (JSjls-5.6.2
 <br><br>
 
 To fix it, we can go about it in many ways. <br>
