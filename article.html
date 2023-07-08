@@ -1,10 +1,11 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script> 
     $(function(){
-      $("#page-content").load("test.html"); 
+		const urlParams = new URLSearchParams(window.location.search);
+		const fileId = urlParams.get('case')
+      $("#page-content").load(fileId+".html"); 
     });
     </script>
  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
