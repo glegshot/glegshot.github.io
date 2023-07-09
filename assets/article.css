@@ -1,5 +1,7 @@
 
-code {
+
+.code-section {
 	border: 1px solid #36e794;
-	padding: 0.25em
+	padding: 0.25em;
+	background-color: grey;
 }
