@@ -1,0 +1,101 @@
+<p>
+<i>"What's the difference between a string literal and a new String Object in Java?"</i>
+</p>
+
+<p>
+This is a common question every Java programmer has come across in their programming life.
+</p>
+
+<p>
+To answer in short, the literals are stored in a special memory area in the heap called Stringpool, and each String value is unique in the pool.<br>
+So irrespective of one or more declarations of variables with the same String value in the code, only one object will be created in the pool.<br>
+Whereas the new operator will create a different object each time we invoke it, even if the String value is the same.
+</p>
+
+<p>
+While we can verify this programmatically by object comparison leveraging the hashcode, I was curious to verify this from the memory perspective.<br>
+So I quickly created the below snippet of code:
+</p>
+
+<div class="code-section">
+<code>
+public static void main(String[] args) throws InterruptedException { <br>
+
+&nbsp;&nbsp;String wordOne = "Hello"; <br>
+&nbsp;&nbsp;String wordTwo = "Hello"; <br>
+
+&nbsp;&nbsp;Thread.sleep(100000); <br>
+}
+</code>
+</div>
+
+</p>
+The sleep statement was created to just have enough time to capture the heap before it terminates.
+</p>
+
+</p>
+While the code was executing, we fired up VisualVM to capture the heap memory state of the process.
+</p>
+
+</p>
+VisualVM is a free piece of software that can be used to create heap dumps (and many more) and also inspect them.
+</p>
+
+<p>
+Once the dump was created, I ran the below OQL query to filter out the specific instance I was interested in.
+</p>
+
+<div class="code-section">
+<code>
+select s from java.lang.String s where s.toString().equals("Hello");
+</code>
+</div>
+
+</p>
+It gave me only one instance of String class, indicating both variables are pointing to the same object in memory.
+</p>
+
+<p>
+Now we executed the below code:
+</p>
+
+<div class="code-section">
+<code>
+public static void main(String[] args) throws InterruptedException {<br>
+
+&nbsp;&nbsp;String wordOne = new String("Hello");<br>
+&nbsp;&nbsp;String wordTwo = new String("Hello");<br>
+
+&nbsp;&nbsp;Thread.sleep(100000);<br>
+
+}
+</code>
+</div>
+
+<p>
+This gave me three instances in the result set with different object IDs, as seen in the snapshot.
+</p>
+
+<p>
+Now you may ask, <i>Why three IDs? Why was it not two as per the expectation?</i>
+</p>
+
+<p>
+Because when we initialized the String object, we passed a literal value into the constructor, <br>
+and this literal was stored in the stringpool as an object.<br>
+Hence, three String objects
+</p>
+
+<p>
+This shows that the literal values are reused and the string objects are created each time the new operator is used.
+
+</p>
+
+<p>
+It was fun experimenting with the theory using heapdump, and I urge everyone to explore this as well.
+</p>
+
+<p>
+Keep practicing and keep growing. <br>
+Thank you everyone.
+</p>
