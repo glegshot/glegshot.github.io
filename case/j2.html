@@ -52,8 +52,13 @@ select s from java.lang.String s where s.toString().equals("Hello");
 </div>
 
 </p>
-It gave me only one instance of String class, indicating both variables are pointing to the same object in memory.
+It gave me only one instance of String class, indicating both variables are pointing to the same object in memory.(Figure 1)
 </p>
+
+<figure>
+    <img src="../assets/cases/j2/literalsnap.PNG" style="width:100%">
+    <figcaption>Figure 1: Only one reference of the String object with reference ID 808 and with value "Hello"</figcaption>
+</figure>
 
 <p>
 Now we executed the below code:
@@ -73,8 +78,13 @@ public static void main(String[] args) throws InterruptedException {<br>
 </div>
 
 <p>
-This gave me three instances in the result set with different object IDs, as seen in the snapshot.
+This gave me three instances in the result set with different object IDs, as seen in the snapshot.(Figure 2)
 </p>
+
+<figure>
+    <img src="../assets/cases/j2/objectsnap.PNG" style="width:100%">
+    <figcaption>Figure 2: Three references of the String object with value "Hello"</figcaption>
+</figure>
 
 <p>
 Now you may ask, <i>Why three IDs? Why was it not two as per the expectation?</i>
