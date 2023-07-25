@@ -5,3 +5,11 @@
 	padding: 0.25em;
 	background-color: grey;
 }
+
+figcaption {
+	background-color: black;
+	color: white;
+	font-style: italic;
+	text-align: center;
+	padding: 2px;
+}
