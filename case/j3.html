@@ -25,7 +25,7 @@ Well, it turns out it is true.
 
 <div class="code-section">
 <code>
-a == b? true 
+ a == b? true 
 </code>
 </div>
 
@@ -37,10 +37,10 @@ Now consider the below example. Can you predict the output?
 <code>
 public static void main(String[] args) {<br>
 
-&nbsp;&nbsp; Integer a = 1; //(1)<br>
-&nbsp;&nbsp; Integer b = Integer.valueOf(1); //((2)<br>
+&nbsp;&nbsp; Integer a = 1;                            //(1)<br>
+&nbsp;&nbsp; Integer b = Integer.valueOf(1);           //((2)<br>
 
-&nbsp;&nbsp; Integer c = new Integer(1); //((3)<br>
+&nbsp;&nbsp; Integer c = new Integer(1);               //((3)<br>
 
 &nbsp;&nbsp; System.out.println("a == b? "+(a == b));<br>
 &nbsp;&nbsp; System.out.println("a == c? "+(a == c));<br>
@@ -106,9 +106,9 @@ Based on this theory, can you guess the output of the below snippet?
 <div class="code-section">
 <code>
 public static void main(String[] args) {<br>
-&nbsp;&nbsp; Integer a = 256; //(1)<br>
-&nbsp;&nbsp; Integer b = Integer.valueOf(256); //(2)<br>
-&nbsp;&nbsp; Integer c = new Integer(256); //(3)<br>
+&nbsp;&nbsp; Integer a = 256;                       <br>
+&nbsp;&nbsp; Integer b = Integer.valueOf(256);      <br>
+&nbsp;&nbsp; Integer c = new Integer(256);          <br>
  
 &nbsp;&nbsp; System.out.println("a == b ? "+(a == b));<br>
 &nbsp;&nbsp; System.out.println("a == c ? "+(a == c));<br>
