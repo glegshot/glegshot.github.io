@@ -1,0 +1,138 @@
+<p>We know that '==' in Java has different context based on the operands involved.</p>
+
+<p>If the operands are of type primitive data types, say int,long,etc., then it compares the value of both<br>
+whereas if the operands are of object reference type, then the identity is compared.</p>
+
+<p>Now, keeping this in mind, guess the below code output:</p>
+
+<div class="code-section">
+<code>
+public static void main(String[] args) {
+ Integer a = 1;
+ Integer b = 1;
+ System.out.println("a == b? "+(a == b));
+}
+</code>
+</div>
+
+<p>
+You might think that since 'a' and 'b' are referring to boxed type objects, the object in memory would be different, hence the identity will differ, and it must be false.
+</p>
+
+<p>
+Well, it turns out it is true.
+</p>
+
+<div class="code-section">
+<code>
+a == b? true 
+</code>
+</div>
+
+<p>
+Now consider the below example. Can you predict the output?
+</p>
+
+<div class="code-section">
+<code>
+public static void main(String[] args) {
+
+ Integer a = 1; //(1)
+ Integer b = Integer.valueOf(1); //((2)
+
+ Integer c = new Integer(1); //((3)
+
+ System.out.println("a == b? "+(a == b));
+ System.out.println("a == c? "+(a == c));
+ System.out.println("b == c? "+(b == c));
+}
+</code>
+</div>
+
+<p>The output is</p>
+
+<div class="code-section">
+<code>
+ a == b? true   //(a)
+ a == c? false  //(b)
+ b == c? false  //(c)
+</code>
+</div>
+
+<p>
+Why is this different behavior for different objects even though all are of the same type, Integer objects?
+</p>
+
+<p>
+We all know or must have heard about the performance implications of autoboxing.<br>
+Read about autoboxing <a href=https://docs.oracle.com/javase/1.5.0/docs/guide/language/autoboxing.html>here</a>
+<p>
+
+<p>
+To avoid the performance implications due to implicitly creating objects and looking up values, for certain use cases, integer caching was introduced.<br>
+The integer values between -128 and 127 are already initialized via a static block in an array of Integers.<br>
+If the initialization value doesn't fit within the defined range of cached values, then a new Integer object is initialized and returned.
+</p>
+
+<p>
+The implementation can vary based on vendor, as mentioned in [JLS8 jls-5.1.7]
+</p>
+
+<div class="code-section">
+<code>
+<i>"Ideally, boxing a primitive value would always yield an identical reference. In practice, this may not be feasible using existing implementation techniques.<br>
+ The rule above is a pragmatic compromise, requiring that certain common values always be boxed into indistinguishable objects. <br>
+ The implementation may cache these, lazily or eagerly."<i>
+</code>
+</div>
+
+<p>Optionally, The upper limit can be increased by using the jvm argument -XX:AutoBoxCacheMax=<size> </p>
+
+<p>
+Whenever we declare (1) or (2), the value will be checked to see if it is within the range of -128 to 127 and will return the object reference every time it is invoked. <br>
+When (1) and (2) are automatically boxed, no new Integer instance is actually created.<br>
+This is the reason (a) was true since both the references point to the same memory and the identifiers are the same.
+</p>
+
+<p>
+Whereas (3) will create a new object and will not do cache lookup as we explicitly invoked the constructor,<br>
+hence (b) and (c) are always false as they reference different objects.
+</p>
+
+<p>
+Based on this theory, can you guess the output of the below snippet?
+</p>
+
+<div class="code-section">
+<code>
+public static void main(String[] args) {
+ Integer a = 256; //(1)
+ Integer b = Integer.valueOf(256); //(2)
+ Integer c = new Integer(256); //(3)
+ 
+ System.out.println("a == b ? "+(a == b));
+ System.out.println("a == c ? "+(a == c));
+ System.out.println("b == c ? "+(b == c));
+}
+</code>
+</div>
+
+<p>
+Yes, this time the output will be as expected. Since the values are beyond the range of cached values, <br>
+a new object is created for each initialization, and hence all of them will be false.
+</p>
+
+<div class="code-section">
+<code>
+ a == b? false  
+ a == c? false 
+ b == c? false
+</code>
+</div>
+
+<p>
+I hope this gives some valuable insight into the Java language.
+Keep learning and keep growing.
+Thank you, everyone.
+</p>
+
