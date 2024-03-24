@@ -63,6 +63,9 @@ In postgres, whenever a data modification query(delete,update) is executed on a 
 <div class="code-section">
 <code>
 SELECT ctid, id, value FROM test_data; <br><br>
+</code>
+</div>
+
 <table>
   <tr>
     <th>ctid</th>
@@ -95,8 +98,6 @@ SELECT ctid, id, value FROM test_data; <br><br>
     <td>Value 5</td>
   </tr>
 </table>
-</code>
-</div>
 
 <p>
    Here the ctid (0,1) indicates the row with id = 1 is stored in page 0 and is tuple 1.
@@ -111,6 +112,8 @@ SELECT ctid, id, value FROM test_data; <br><br>
 DELETE FROM test_data WHERE id = 2; <br><br>
 
 SELECT ctid, id, value FROM test_data; <br><br>
+</code>
+</div>
 
 <table>
   <tr>
@@ -139,8 +142,6 @@ SELECT ctid, id, value FROM test_data; <br><br>
     <td>Value 5</td>
   </tr>
 </table>
-</code>
-</div>
 
 <p>
    The record is deleted and (0,2) tuple is not visible anymore.<br>
@@ -156,6 +157,8 @@ SELECT ctid, id, value FROM test_data; <br><br>
 <code>
 SELECT relname, n_tup_ins, n_tup_upd, n_dead_tup, n_tup_del, vacuum_count, autovacuum_count
 FROM pg_catalog.pg_stat_all_tables WHERE relname = 'test_data';<br><br>
+</code>
+</div>
 
 <table>
 	<tr>
@@ -177,8 +180,6 @@ FROM pg_catalog.pg_stat_all_tables WHERE relname = 'test_data';<br><br>
         <td>0</td>
     </tr>
 </table>
-</code>
-</div>
 
 <p>
 n_tup_ins has 5 tuples inserted in total.<br>
@@ -194,6 +195,8 @@ Now, let's insert a new record and observe the table for data.
 <code>
 INSERT INTO test_data(id, value)
 VALUES(6,'Value 6');<br>
+</code>
+</div>
 
 <table>
   <tr>
@@ -227,8 +230,6 @@ VALUES(6,'Value 6');<br>
     <td>Value 6</td>
   </tr>
 </table>
-</code>
-</div>
 
 <p>We can see the new record is inserted at (0,6).<br>
 
@@ -241,6 +242,8 @@ VACUUM test_data; <br>
 
 SELECT relname, n_tup_ins, n_tup_upd, n_dead_tup, n_tup_del, vacuum_count, autovacuum_count 
 FROM pg_catalog.pg_stat_all_tables WHERE relname = 'test_data';
+</code>
+</div>
 
 <table>
 	<tr>
@@ -262,8 +265,6 @@ FROM pg_catalog.pg_stat_all_tables WHERE relname = 'test_data';
         <td>0</td>
     </tr>
 </table>
-</code>
-</div>
 
 <p>Notice that the vaccum_count is now 1 since we executed it once.<br>
 Also n_dead_tup is 0 now.<br>
@@ -273,7 +274,9 @@ Let's inspect the test_data.
 
 <div class="code-section">
 <code>
-select ctid,id,value from test_data;<br>
+SELECT ctid, id, value FROM test_data;<br>
+</code>
+</div>
 
 <table>
   <tr>
@@ -292,7 +295,7 @@ select ctid,id,value from test_data;<br>
     <td>Value 3</td>
   </tr>
   <tr>
-    <td>(0,3)</td>
+    <td>(0,4)</td>
     <td>4</td>
     <td>Value 4</td>
   </tr>
@@ -307,8 +310,6 @@ select ctid,id,value from test_data;<br>
     <td>Value 6</td>
   </tr>
 </table>
-</code>
-</div>
 
 <p>
 No changes visible in ctid ,even though the dead tuple is cleared (0,2) is still missing.<br>
@@ -322,6 +323,8 @@ Lets try another insert and inspect the table to see what happens post the vaccu
 <code>
 INSERT INTO test_data(id, value)
 VALUES(7,'Value 7'); <br>
+</code>
+</div>
 
 <table>
   <tr>
@@ -360,10 +363,8 @@ VALUES(7,'Value 7'); <br>
     <td>Value 6</td>
   </tr>
 </table>
-</code>
-</div>
 
-<p>reading the table test_data we find that the new record is inserted at ctid(0,2)
+<p>Reading the table test_data we find that the new record is inserted at ctid(0,2)
 </p>
 
 <p>As per postgres documentation, <br><br>
@@ -384,7 +385,8 @@ Let's delete a record first.
 <div class="code-section">
 <code>
 DELETE FROM test_data
-where id = 3;<br>
+WHERE id = 3;<br>
+</div>
 
 <table>
   <tr>
@@ -418,15 +420,16 @@ where id = 3;<br>
     <td>Value 6</td>
   </tr>
 </table>
-</div>
 
 <p>
-Let's execute the vacuum full record and inspect the tuples post full vacuum.
+Let's execute the VACUUM FULL record and inspect the tuples post full vacuum.
 </p>
 
 <div class="code-section">
 <code>
-vacuum full test_data;
+VACUUM FULL test_data;
+</code>
+<div>
 
 <table>
   <tr>
@@ -460,8 +463,6 @@ vacuum full test_data;
     <td>Value 6</td>
   </tr>
 </table>
-</code>
-<div>
 
 <p>
 We can see the <code>citd</code> have been reset and is sequential in order now, the free storage is now compacted and size is reduced.
