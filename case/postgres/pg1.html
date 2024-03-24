@@ -3,7 +3,7 @@
 
 <p>You might have also heard about different terms such as vacuum, vacuum full and auto-vaccum terms too in postgres.<br>
 The vaccuum process, apart from cleaning dead tuples ,performs various other activities as such such as setting visibility map,
-cleaning up unused transactions etc..
+cleaning up unused transactions etc.
 </p>
 
 <p>Today ,we will have a demo on the effect of vacuum and vacuum full on the garbage collection process.</p>
@@ -35,20 +35,23 @@ cleaning up unused transactions etc..
   </p>
 </ol> 
 
-<p>With these terminologies cleared up,lets start off with the topic.</p>
+<p>With these terminologies cleared up, let's start off with the topic.</p>
 
-<p>We can straightaway inspect the statistics active,dead tuples and the vacuum ,analyze process triggered on the table using the view <code>pg_stat_all_tables.</code><br>
-However,We would be today focusing on a different approach to inspect the effect of vacuum on table.
+<p>We can straightaway inspect the statistics of the number of active, dead tuples ,times vacuum and analyze process triggered on the table using the view <code>pg_stat_all_tables.</code><br>
+However, we would be today focusing on a different approach to inspect the effect of vacuum on table.
 </p>
 
 <p>
-In postgres, whenever a data modification query(delete,update) is executed on a table, the existing tuple which is affected is marked for deletion(soft deleted) and a new record is inserted with updated value as applicable.
+  In postgres, whenever a data modification query (DELETE, UPDATE) is executed on a table, the existing tuple which is affected is marked for deletion (soft deleted) and a new record is inserted with updated value as applicable.
 </p>
 
-<p>These dead tuples will be removed from the table when either vacuum is executed manually or via the automated process auto-vacuum.
+<p>
+  These dead tuples will be removed from the table when either vacuum is executed manually or via the automated process auto-vacuum.
 </p>
 
-<p>Let's create a sample data first before proceeding ahead with demonstration.</p>
+<p>
+  Let's create a sample data first before proceeding ahead with demonstration.
+</p>
 
 <div class="code-section">
 <code>
@@ -58,7 +61,7 @@ SELECT id, 'Value '|| id FROM generate_series(0,5) AS series(id);
 </code>
 </div>
 
-<p>Lets inspect the ctid values of the records</p>
+<p>Let's inspect the <code>ctid<code> values of the records</p>
 
 <div class="code-section">
 <code>
@@ -100,7 +103,7 @@ SELECT ctid, id, value FROM test_data; <br><br>
 </table>
 
 <p>
-   Here the ctid (0,1) indicates the row with id = 1 is stored in page 0 and is tuple 1.
+   Here the <code>ctid (0,1)</code> indicates the row with id = 1 is stored in page 0 and is tuple 1.
 </p>
 
 <p>
@@ -150,7 +153,7 @@ SELECT ctid, id, value FROM test_data; <br><br>
 
 
 <p>
-   Let's check the <code>pg_stat_all_tables</code> for the records statistics on active and dead tuples.
+   Let's check the <code>pg_stat_all_tables</code> for the record statistics on active and dead tuples.
 </p>
 
 <div class="code-section">
@@ -194,7 +197,9 @@ Now, let's insert a new record and observe the table for data.
 <div class="code-section">
 <code>
 INSERT INTO test_data(id, value)
-VALUES(6,'Value 6');<br>
+VALUES(6,'Value 6');<br><br>
+
+SELECT ctid, id, value FROM test_data; <br><br>
 </code>
 </div>
 
@@ -312,7 +317,7 @@ SELECT ctid, id, value FROM test_data;<br>
 </table>
 
 <p>
-No changes visible in ctid ,even though the dead tuple is cleared (0,2) is still missing.<br>
+No changes visible in <code>ctid</code> ,even though the dead tuple is cleared (0,2) is still missing.<br>
 
 The new record is inserted at (0,6), this means the (0,2) is not being utilized and is wasted space.<br>
 
@@ -322,7 +327,8 @@ Lets try another insert and inspect the table to see what happens post the vaccu
 <div class="code-section">
 <code>
 INSERT INTO test_data(id, value)
-VALUES(7,'Value 7'); <br>
+VALUES(7,'Value 7'); <br><br>
+SELECT ctid, id, value FROM test_data; <br><br>
 </code>
 </div>
 
@@ -364,10 +370,11 @@ VALUES(7,'Value 7'); <br>
   </tr>
 </table>
 
-<p>Reading the table test_data we find that the new record is inserted at ctid(0,2)
+<p>
+   Reading the table test_data we find that the new record is inserted at <code>ctid(0,2)</code>
 </p>
 
-<p>As per postgres documentation, <br><br>
+<p>As per postgres documentation, <br>
 <div class="code-section">
 <code>
 The standard form of VACUUM removes dead row versions in tables and indexes and marks the space available for future reuse. However, it will not return the space to the operating system
@@ -385,7 +392,8 @@ Let's delete a record first.
 <div class="code-section">
 <code>
 DELETE FROM test_data
-WHERE id = 3;<br>
+WHERE id = 3;<br><br>
+SELECT ctid, id, value FROM test_data; <br><br>
 </div>
 
 <table>
@@ -466,7 +474,9 @@ VACUUM FULL test_data;
 
 <p>
 We can see the <code>citd</code> have been reset and is sequential in order now, the free storage is now compacted and size is reduced.
+</p>
 
+<p>
 As per postgres documentation, <br>
 <div class="code-section">
 <code>
@@ -474,7 +484,9 @@ VACUUM FULL actively compacts tables by writing a complete new version of the ta
 VACUUM FULL requires an ACCESS EXCLUSIVE lock on the table it is working on, and therefore cannot be done in parallel with other use of the table.
 </code>
 </div>
+</p>
 
+<p>
 So that's the difference between vacuum and vacuum full in cleaning up the dead tuple.<br>
 
 Hope you got some useful insights into vacuum process in postgres.<br>
