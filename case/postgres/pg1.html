@@ -52,9 +52,9 @@ In postgres, whenever a data modification query(delete,update) is executed on a 
 
 <div class="code-section">
 <code>
-&nbsp;&nbsp; CREATE TABLE test_data(id bigint, value text);<br>
-&nbsp;&nbsp; INSERT INTO test_data(id, value)<br>
-&nbsp;&nbsp; SELECT id, 'Value '|| id FROM generate_series(0,5) AS series(id);
+CREATE TABLE test_data(id bigint, value text);<br>
+INSERT INTO test_data(id, value)<br>
+SELECT id, 'Value '|| id FROM generate_series(0,5) AS series(id);
 </code>
 </div>
 
@@ -83,7 +83,7 @@ SELECT ctid, id, value FROM test_data; <br><br>
     <td>Value 2</td>
   </tr>
     <tr>
-    <td>(0,3))</td>
+    <td>(0,3)</td>
     <td>3</td>
     <td>Value 3</td>
   </tr>
@@ -127,7 +127,7 @@ SELECT ctid, id, value FROM test_data; <br><br>
     <td>Value 1</td>
   </tr>
   <tr>
-    <td>(0,3))</td>
+    <td>(0,3)</td>
     <td>3</td>
     <td>Value 3</td>
   </tr>
@@ -150,7 +150,7 @@ SELECT ctid, id, value FROM test_data; <br><br>
 
 
 <p>
-   Lets check the <code>pg_stat_all_tables</code> for the records active and dead tuples.
+   Let's check the <code>pg_stat_all_tables</code> for the records statistics on active and dead tuples.
 </p>
 
 <div class="code-section">
