@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	const urlParams = new URLSearchParams(window.location.search);
-	const templateHTML = $.get('article.html');
+	const templateHTML = $.get('index.html');
 	const markdownContentPath = urlParams.get('note') + ".md";
 	
 	$.get(markdownContentPath, function(data) {
