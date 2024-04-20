@@ -47,8 +47,12 @@ $(document).ready(function() {
 					htmlContent = converter.makeHtml(markdownWithoutFrontMatter);
 					
 					$('#page-content').html(htmlContent);
-			}
-		});
+				},
+				error: function(xhr, status, error) {
+        			// Handle error
+        			console.error(xhr.responseText);
+    			}
+			});
 	}
 	
 });
