@@ -94,9 +94,9 @@ SELECT relname, n_tup_ins, n_tup_upd, n_dead_tup, n_tup_del, vacuum_count,autova
 FROM pg_catalog.pg_stat_all_tables WHERE relname = 'test_data';
 ```
 
-| relname        | n_tup_ins          | n_tup_upd       | n_dead_tup       | n_tup_del       | vacuum_count       | autovacuum_count      |
-| ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
-| test_data       | 5          | 0     | 1     | 1     | 0     | 0     |
+| relname     | n\_tup\_ins   | n\_tup\_upd   | n\_dead\_tup  | n\_tup\_del   | vacuum_count| autovacuum_count |
+| ----------- | ----------- | ----------- | -----------       | -----------   | ----------- | ---------------- |
+| test_data   | 5           | 0           | 1                 | 1             | 0           | 0                |
 
 
 n_tup_ins has 5 tuples inserted in total.  
@@ -136,10 +136,9 @@ SELECT relname, n_tup_ins, n_tup_upd, n_dead_tup, n_tup_del, vacuum_count, autov
 FROM pg_catalog.pg_stat_all_tables WHERE relname = 'test_data';
 ```
 
-| relname        | n_tup_ins          | n_tup_upd       | n_dead_tup       | n_tup_del       | vacuum_count       | autovacuum_count      |
-| ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
-| test_data       | 6          | 0     | 0     | 1     | 1     | 0     |
-
+| relname     | n\_tup\_ins   | n\_tup\_upd   | n\_dead\_tup  | n\_tup\_del   | vacuum_count| autovacuum_count |
+| ----------- | ----------- | ----------- | -----------       | -----------   | ----------- | ---------------- |
+| test_data   | 6           | 0           | 0                 | 1             | 1           | 0                |
 
 Notice that the vaccum_count is now 1 since we executed it once.  
 Also n_dead_tup is 0 now.  
@@ -233,8 +232,11 @@ We can see the ```citd``` have been reset and is sequential in order now, the fr
 
 As per postgres documentation,  
 ```
-VACUUM FULL actively compacts tables by writing a complete new version of the table file with no dead space. This minimizes the size of the table, but can take a long time. It also requires extra disk space for the new copy of the table, until the operation completes.  
-VACUUM FULL requires an ACCESS EXCLUSIVE lock on the table it is working on, and therefore cannot be done in parallel with other use of the table.
+VACUUM FULL actively compacts tables by writing a complete new version of the table file with no dead space.  
+This minimizes the size of the table, but can take a long time.  
+It also requires extra disk space for the new copy of the table, until the operation completes.  
+VACUUM FULL requires an ACCESS EXCLUSIVE lock on the table it is working on,  
+and therefore cannot be done in parallel with other use of the table.
 ```
 
 So that's the difference between vacuum and vacuum full in cleaning up the dead tuple.  
