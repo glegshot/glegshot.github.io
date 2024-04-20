@@ -67,19 +67,3 @@ a:hover {
 	padding: 10px; /* Add padding for spacing */
 	/*background-color: #f0f0f0; /* Add a background color */
 }
-
-/* Style for the search input */
-#searchInput {
-	width: 200px; /* Set the width of the input field */
-	padding: 8px; /* Add some padding for better appearance */
-	border-radius: 5px; /* Add some border radius for rounded corners */
-	border: 1px solid #ccc; /* Add a border */
-	outline: none; /* Remove the default focus outline */
-}
-
-/* Adjust input width on smaller screens */
-@media screen and (max-width: 600px) {
-	#searchInput {
-		width: 150px; /* Adjust width for smaller screens */
-	}
-}
