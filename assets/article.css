@@ -26,6 +26,11 @@ td, th {
   padding: 8px;
 }
 
+thead {
+  color: white;
+  background-color: black;
+}
+
 tr:nth-child(even) {
   background-color: #5a5e5b;
   color: black;
