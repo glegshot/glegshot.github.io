@@ -6,7 +6,15 @@ $(document).ready(function() {
 	const filePathURL = "https://api.github.com/repos/glegshot/glegshot.github.io/contents/programmingdiaries/post/" + markdownContentPath;
 
 	if(markdownContentPath) {
-		$.get(filePathURL, function(data) {
+		$.ajax(
+			{
+				url: filePathURL, 
+				method: 'GET',
+				headers: {
+					'Accept': 'application/vnd.github.raw+json'
+			}
+			},
+			success: function(data) {
 			fileContent = data;
 			var frontMatterRegex = /^---([\s\S]*?)---/;
 
