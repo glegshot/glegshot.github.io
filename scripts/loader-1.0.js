@@ -1,10 +1,12 @@
 $(document).ready(function() {
 	const urlParams = new URLSearchParams(window.location.search);
 	const templateHTML = $.get('index.html');
-	const markdownContentPath = urlParams.get('note');
-	
+	const markdownContentPath = urlParams.get('note') + ".md";
+
+	const filePathURL = "https://api.github.com/repos/glegshot/glegshot.github.io/contents/programmingdiaries/post/" + markdownContentPath;
+
 	if(markdownContentPath) {
-		$.get(markdownContentPath, function(data) {
+		$.get(filePathURL, function(data) {
 			fileContent = data;
 			var frontMatterRegex = /^---([\s\S]*?)---/;
 
