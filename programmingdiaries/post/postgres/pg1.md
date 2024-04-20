@@ -187,8 +187,11 @@ Reading the table test_data we find that the new record is inserted at ```ctid(0
 
 As per postgres documentation,  
 ```
-The standard form of VACUUM removes dead row versions in tables and indexes and marks the space available for future reuse. However, it will not return the space to the operating system  
-The standard form of VACUUM can run in parallel with production database operations. (Commands such as SELECT, INSERT, UPDATE, and DELETE will continue to function normally, though you will not be able to modify the definition of a table with commands such as ALTER TABLE while it is being vacuumed.)
+The standard form of VACUUM removes dead row versions in tables and indexes and marks the space available for future reuse.  
+However, it will not return the space to the operating system  
+The standard form of VACUUM can run in parallel with production database operations.  
+(Commands such as SELECT, INSERT, UPDATE, and DELETE will continue to function normally, though you will not be able to modify 
+the definition of a table with commands such as ALTER TABLE while it is being vacuumed.)
 ```
 
 

@@ -41,7 +41,7 @@ $(document).ready(function() {
 						markdownWithoutFrontMatter = fileContent.replace(frontMatterRegex, ''); // Remove front matter
 					}
 				
-					var converter = new showdown.Converter();
+					var converter = new showdown.Converter({tables: true}
 					var htmlContent = converter.makeHtml(markdownWithoutFrontMatter);
 
 					htmlContent = converter.makeHtml(markdownWithoutFrontMatter);
