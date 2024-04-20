@@ -35,7 +35,7 @@ $(document).ready(function() {
 						
 						keywords = keywords.split(': ');
 						
-						$('meta[name="keywords"]').attr(keywords[4]);
+						$('meta[name="keywords"]').attr('content', keywords[3]);
 						$('title').text(title[1]);
 						
 						markdownWithoutFrontMatter = fileContent.replace(frontMatterRegex, ''); // Remove front matter
