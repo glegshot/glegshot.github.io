@@ -1,6 +1,6 @@
 body{
     font-family: Open Sans,BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
-    background: linear-gradient(45deg,#08090a,#101a26);
+    background: #171717;
     overflow: hidden;
     color: white;
 }
@@ -34,7 +34,7 @@ a {
 #profile-pic-container{
     grid-column: 3/4;
     grid-row: 3/5;
-    border: 2px solid #36e794;
+    border: 2px solid #10A37F;
 }
 
 #profile-pic{
@@ -61,7 +61,7 @@ a {
     height: calc(100% - 50px);
     top:25px;
     left:25px;
-    border: 2px solid #36e794;
+    border: 2px solid #10A37F;
     position: absolute;
     z-index: -1;
 }

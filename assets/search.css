@@ -4,8 +4,10 @@
 	width: 200px; /* Set the width of the input field */
 	padding: 8px; /* Add some padding for better appearance */
 	border-radius: 5px; /* Add some border radius for rounded corners */
-	border: 1px solid #ccc; /* Add a border */
+	border: 1px solid #595959; /* Add a border */
 	outline: none; /* Remove the default focus outline */
+	background-color: #171717;
+	color: white;
 }
 
 /* Adjust input width on smaller screens */
@@ -18,7 +20,7 @@
 /* Style for the search results */
 #searchResults {
 	z-index: 2;
-	border: 1px solid #ccc; 
+	border: 1px solid #595959; 
 	max-height: 200px;
 	overflow-y: auto; 
 	width: 300px;
@@ -26,7 +28,7 @@
 	display: none;
 	position: absolute;
     right: 0;
-	background-color: #101a26;
+	background-color: #171717;
 	color: white;
 }
 
@@ -38,6 +40,6 @@
 }
 
 .searchResultItem:hover {
-    background-color: #36e794;
+    background-color: #10A37F;
 	color: black;
 }

@@ -2,6 +2,7 @@
 <head>
   	<link rel="stylesheet" href="../assets/home.css">
 	<link rel="stylesheet" href="../assets/search.css">
+	<link rel="stylesheet" href="../assets/scrollbar.css">
  	<script src="../scripts/jquery-3.7.0.min.js"></script>
  	<script src="../scripts/search.js"></script>
  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -18,7 +19,7 @@
     <!-- Input field for search box -->
     <input type="text" id="searchInput" placeholder="Search...">
 </div>
-<div id="searchResults"></div>
+<div id="searchResults" class="scroll-container"></div>
  <div class="page-title" id="page-title">Programming Diaries</div>
  <div class="catalogue-section">
   <b>Programming Diaries</b> offers some insights into interesting facts encountered during programming
@@ -30,7 +31,7 @@
  </nav>
  </div>
  
-  <div id="table-of-contents">  
+  <div id="table-of-contents" class="scroll-container">  
     <div class="page-section" id="java">Java</div>
     <table class="table-of-contents">
      <colgroup><col style="width:50%"><col style="width:50%"></colgroup>

@@ -1,0 +1,16 @@
+/* Styles for the scrollbar track */
+.scroll-container::-webkit-scrollbar {
+    width: 8px; /* Set the width of the scrollbar */
+}
+
+/* Styles for the scrollbar thumb */
+.scroll-container::-webkit-scrollbar-thumb {
+    background-color: #212121; /* Set the color of the scrollbar thumb */
+    border-radius: 8px; /* Set the border-radius to create rounded edges */
+}
+
+/* Styles for the scrollbar track */
+.scroll-container::-webkit-scrollbar-track {
+    background-color: #171717; /* Set the color of the scrollbar track */
+    border-radius: 8px; /* Set the border-radius to create rounded edges */
+}
