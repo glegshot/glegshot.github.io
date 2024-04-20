@@ -3,15 +3,22 @@
     <link rel="stylesheet" href="../../assets/home.css">
 	<link rel="stylesheet" href="../../assets/article.css">
     <script src="../../scripts/jquery-3.7.0.min.js"></script>
+    <script src="../scripts/search.js"></script>
     <script src="../../scripts/loader-1.0.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.min.js"></script>
- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
- <meta name="keywords" content="{{KEYWORDS}}">
- <title>Programming Diaries</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="keywords" content="{{KEYWORDS}}">
+    <title>Programming Diaries</title>
 </head>
 <body>
- <a href="../../programmingdiaries">Home</a>
+ <div class="header">
+	<!-- Anchor tag to the left -->
+     <a href="../../programmingdiaries">Home</a>
+    
+    <!-- Input field for search box -->
+    <input type="text" id="searchInput" placeholder="Search...">
+ </div>
  <div class="page-title" id="page-title">Programming Diaries</div>
  <div id="page-content"></div>
 </body>
