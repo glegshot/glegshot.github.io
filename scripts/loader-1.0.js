@@ -11,7 +11,7 @@ $(document).ready(function() {
 				url: filePathURL, 
 				method: 'GET',
 				headers: {
-					'Accept': 'application/vnd.github.raw+json'
+					'Accept': 'application/vnd.github.raw'
 				},
 				success: function(data) {
 					fileContent = data;
