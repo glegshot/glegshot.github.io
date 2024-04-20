@@ -10,6 +10,8 @@ $(document).ready(function() {
 			{
 				url: filePathURL, 
 				method: 'GET',
+				dataType: 'text',
+    			cache: true,
 				headers: {
 					'Accept': 'application/vnd.github.raw'
 				},
