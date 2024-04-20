@@ -1,7 +1,7 @@
 ---
 title: Efficient Data Retrieval; Index-Only Scans and Visibility Maps Demystified
 author: Sreekumar T
-keywords: SQL, postgres, vacuum, index-only-scan, visibility-map, page, row, rowid, heap, ctid, postgres, transaction, tuples, query-plan,table, heap-fetches
+keywords: [SQL, postgres, vacuum, index-only-scan, visibility-map, page, row, rowid, heap, ctid, postgres, transaction, tuples, query-plan,table, heap-fetches]
 ---
 
 While analyzing the SQL query which uses an index only scan, we would have noticed something called Heap Fetches mentioned in the plan node.  

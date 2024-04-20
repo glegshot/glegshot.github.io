@@ -1,7 +1,7 @@
 ---
 title: Unveiling Vacuum Process Impact on Heap Space
 author: Sreekumar T
-keywords: SQL, postgres, vacuum, vacuum-full, lock, page, row, rowid, heap, ctid, postgres, transaction, tuples, visibility-map,auto-vacuum, garbage-collection, table
+keywords: [SQL, postgres, vacuum, vacuum-full, lock, page, row, rowid, heap, ctid, postgres, transaction, tuples, visibility-map,auto-vacuum, garbage-collection, table]
 ---
 
 While working on SQL, everyone would have heard about the vacuum process which is responsible mainly for the dead tuples (rows) tuples cleanup (garbage collection).
