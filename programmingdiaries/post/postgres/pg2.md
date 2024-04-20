@@ -18,7 +18,7 @@ These heap fetches are nothing but the total number of pages that are read from 
 Heap fetches involves disk I/O most of the time.
 
 From earlier topic on 
-<a href="https://glegshot.github.io/case/article?case=postgres/pg1"> vacuum process on heap, we had discussed the ctid and pages and tuples</a>
+<a href="https://glegshot.github.io/programmingdiaries/post/?note=postgres/pg1"> vacuum process on heap, we had discussed the ctid and pages and tuples</a>
 
 Each row in the table have a ```ctid``` (row id) assigned to it, which points to the page and offset of the tuple in the heap.  
 
