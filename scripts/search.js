@@ -21,7 +21,10 @@ const processSearchInput = debounce(async () => {
     const query = searchInput.val();
     if(query && query !== '') {
         const results = await fetchData(query);
-        displaySearchResults(results);
+        if(results)
+            displaySearchResults(results);
+        else   
+             hideSearchResults();
     } else {
         hideSearchResults();
     }
@@ -41,16 +44,17 @@ function debounce(func, delay = 2000){
 // Function to fetch Data From Server
 async function fetchData(query) {
     console.log("invoking API for ", query);
-    console.log("returning mock data");
-    return mockData;
-    // try {
-    //     const response = await fetch(`https://api.example.com/search?q=${query}`);
-    //     const data = await response.json();
-    //     return data;
-    // } catch (error) {
-    //     console.error('Error fetching data:', error);
-    //     return [];
-    // }
+    //console.log("returning mock data");
+    //return mockData;
+    try {
+        const response = await fetch(`https://hy3z6smgec.execute-api.us-east-1.amazonaws.com/search?q=${query}`); //mock API
+        const data = await response.text();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return [];
+    }
 }
 
 function displaySearchResults(results) {
