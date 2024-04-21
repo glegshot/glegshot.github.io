@@ -38,6 +38,7 @@ We'll start by creating a sample data set with an index as well.
 
 
 ```
+
 CREATE TABLE test_values(id bigint, value text);  
 
 INSERT INTO test_values(id, value)   
@@ -46,11 +47,13 @@ SELECT a.id, 'Value '||id FROM generate_series(1,500) AS a(id);
 CREATE INDEX idx_id_value ON test_values(id,value);  
 
 VACUUM test_values;  
+
 ```
 
 We'll fetch a particular row and generate the execution plan as well  
 
 ```
+
 EXPLAIN (ANALYZE)  
 SELECT id FROM test_values WHERE id = 499;  
 
@@ -60,6 +63,7 @@ Index Only Scan using idx_id_value on test_values  (cost=0.27..4.29 rows=1 width
   Heap Fetches: 0  
 Planning Time: 0.170 ms  
 Execution Time: 0.076 ms  
+
 ```
 
 Here as we can see the Heap Fetches is 0 even though rows = 1,this means that we are fetching row from index only without looking up the heap.  
@@ -74,8 +78,10 @@ We will use the pg_visibility module to inspect the visibility map.
 
 
 ```
+
 CREATE EXTENSION pg_visibility;  
 SELECT * FROM pg_visibility_map('test_values');
+
 ```
 
 | blkno        | all_visible          | all_frozen       |
@@ -104,10 +110,12 @@ This is an important feature in postgres which helps to reduce significant I/O i
 We'll insert a new record and unset the all_visible bit for a page.
 
 ```
+
 INSERT INTO test_values(id, values)  
 VALUES(2001,'Value 2000');
 
 SELECT * FROM pg_visibility_map('test_values');
+
 ```
 
 | blkno        | all_visible          | all_frozen       |
@@ -121,7 +129,9 @@ The ```all_visible``` bit is unset for ```blkno``` 3,
 Inspecting the new inserted record ctid shows that it belongs to the page 3 as well hence explaining the particular page bit unset for all_visible flag.  
 
 ```
+
 SELECT ctid,* FROM test_values WHERE id = 499;
+
 ```
 
 | ctid         | id            | value         |
@@ -131,6 +141,7 @@ SELECT ctid,* FROM test_values WHERE id = 499;
 We will generate the plan once again and observe the execution plan.
 
 ```
+
 EXPLAIN (ANALYZE)  
 SELECT id FROM test_values WHERE id = 499;  
 
@@ -141,6 +152,7 @@ Index Only Scan using idx_id_value on test_values  (cost=0.27..4.29 rows=1 width
   Heap Fetches: 1  
 Planning Time: 0.060 ms  
 Execution Time: 0.038 ms  
+
 ```
 
 With the bit for ```all_visible``` unset, the the Heap Fetches is 1 as the tuple found in index is present in the page 3 which has all_visible unset.

@@ -48,15 +48,19 @@ These dead tuples will be removed from the table when either vacuum is executed 
 Let's create a sample data first before proceeding ahead with demonstration.
 
 ```
+
 CREATE TABLE test_data(id bigint, value text);  
 INSERT INTO test_data(id, value)  
 SELECT id, 'Value '|| id FROM generate_series(0,5) AS series(id);
+
 ```
 
 Let's inspect the ```ctid``` values of the records
 
 ```
+
 SELECT ctid, id, value FROM test_data;
+
 ```
 
 | ctid        | id          | Value       |
@@ -90,8 +94,10 @@ Now what happens to the tuple space for (0,2).
 Let's check the ```pg_stat_all_tables``` for the record statistics on active and dead tuples.
 
 ```
+
 SELECT relname, n_tup_ins, n_tup_upd, n_dead_tup, n_tup_del, vacuum_count,autovacuum_count
 FROM pg_catalog.pg_stat_all_tables WHERE relname = 'test_data';
+
 ```
 
 | relname     | n\_tup\_ins   | n\_tup\_upd   | n\_dead\_tup  | n\_tup\_del   | vacuum_count| autovacuum_count |
@@ -109,10 +115,12 @@ Now, let's insert a new record and observe the table for data.
 
 
 ```
+
 INSERT INTO test_data(id, value)  
 VALUES(6,'Value 6');  
 
 SELECT ctid, id, value FROM test_data; 
+
 ```
 
 
@@ -130,10 +138,12 @@ Lets go ahead and  execute vacuum to clean up the dead tuples from the table.
 
 
 ```
+
 VACUUM test_data;  
 
 SELECT relname, n_tup_ins, n_tup_upd, n_dead_tup, n_tup_del, vacuum_count, autovacuum_count  
 FROM pg_catalog.pg_stat_all_tables WHERE relname = 'test_data';
+
 ```
 
 | relname     | n\_tup\_ins   | n\_tup\_upd   | n\_dead\_tup  | n\_tup\_del   | vacuum_count| autovacuum_count |
@@ -146,7 +156,9 @@ Also n_dead_tup is 0 now.
 Let's inspect the test_data.
 
 ```
+
 SELECT ctid, id, value FROM test_data;
+
 ```
 
 
@@ -166,9 +178,11 @@ Lets try another insert and inspect the table to see what happens post the vaccu
 
 
 ```
+
 INSERT INTO test_data(id, value)  
 VALUES(7,'Value 7');  
 SELECT ctid, id, value FROM test_data; 
+
 ```
 
 
@@ -186,11 +200,13 @@ Reading the table test_data we find that the new record is inserted at ```ctid(0
 
 As per postgres documentation,  
 ```
+
 The standard form of VACUUM removes dead row versions in tables and indexes and marks the space available for future reuse.  
 However, it will not return the space to the operating system  
 The standard form of VACUUM can run in parallel with production database operations.  
 (Commands such as SELECT, INSERT, UPDATE, and DELETE will continue to function normally, though you will not be able to modify 
 the definition of a table with commands such as ALTER TABLE while it is being vacuumed.)
+
 ```
 
 
@@ -200,9 +216,11 @@ Let's delete a record first.
 
 
 ```
+
 DELETE FROM test_data  
 WHERE id = 3;
 SELECT ctid, id, value FROM test_data; 
+
 ```
 
 | ctid        | id          | Value       |
@@ -217,7 +235,9 @@ SELECT ctid, id, value FROM test_data;
 Let's execute the VACUUM FULL record and inspect the tuples post full vacuum.
 
 ```
+
 VACUUM FULL test_data;
+
 ```
 
 | ctid        | id          | Value       |
@@ -232,11 +252,13 @@ We can see the ```citd``` have been reset and is sequential in order now, the fr
 
 As per postgres documentation,  
 ```
+
 VACUUM FULL actively compacts tables by writing a complete new version of the table file with no dead space.  
 This minimizes the size of the table, but can take a long time.  
 It also requires extra disk space for the new copy of the table, until the operation completes.  
 VACUUM FULL requires an ACCESS EXCLUSIVE lock on the table it is working on,  
 and therefore cannot be done in parallel with other use of the table.
+
 ```
 
 So that's the difference between vacuum and vacuum full in cleaning up the dead tuple.  

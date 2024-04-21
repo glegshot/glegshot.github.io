@@ -4,6 +4,7 @@ pre {
 	border: 1px solid #10A37F;
 	padding: 0.25em;
 	background-color: black;
+  border-radius: 8px;
 }
 
 figcaption {
@@ -24,6 +25,7 @@ td, th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
+  border-radius: 8px;
 }
 
 thead {

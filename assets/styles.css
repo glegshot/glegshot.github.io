@@ -64,6 +64,7 @@ a {
     border: 2px solid #10A37F;
     position: absolute;
     z-index: -1;
+    border-radius: 2px;
 }
 
 h1{
