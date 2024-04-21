@@ -7,6 +7,10 @@ body{
 	margin-top: 2%;
 }
 
+td {
+	padding: 0.25em;
+}
+
 .page-title {
     font-size: 250%;
     clear: both;
@@ -14,7 +18,7 @@ body{
     border: 1px solid #10A37F;
     padding: 0.25em;
 	margin-top: 2px;
-  	border-radius: 8px;
+  	border-radius: 4px;
 }
 
 .catalogue-section {
@@ -25,7 +29,9 @@ body{
 .page-section {
     font-size: 120%;
     font-weight: bolder;
-    padding: 0.25em;
+    padding-left: 0.5em;
+	padding-top: 0.25em;
+	padding-bottom: 0.25em;
     border: 1px solid #10A37F;
   	border-radius: 8px;
 }
