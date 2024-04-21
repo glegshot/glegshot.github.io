@@ -1,3 +1,9 @@
+---
+title: Variable Mysteries And Secret of Hoisting
+author: Sreekumar T
+keywords: javascript, variables, var, let, const, hoisting, pitfalls
+---
+
 #  Variable Mysteries And Secret of Hoisting
 
 As I transitioned from backend development to  full stack role, I naturally attempted to apply my Java skills while coding in JavaScript.
