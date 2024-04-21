@@ -11,54 +11,46 @@ const BASE_URL = "https://glegshot.github.io/programmingdiaries/post?note=";
 
 $(document).ready(function() {
         const searchInput = $('#searchInput');
-        const searchResults = document.getElementById('searchResults');
-        const delay = 2000; // delay in milliseconds
-
-        // Debounced function for fetching data
-        //const debouncedFetchData = debounce(function(query) {
-        //    fetchData(query);
-        //}, delay);
-
+        const searchResults = $('#searchResults');
         // Event listener for input change
-        searchInput.on('input', function() {
-            const query = $(this).val().trim();
-            if(query && query !== '') {
-                const results = fetchData(query); //debouncedFetchData(query);
-                displaySearchResults(results);
-            } else {
-                hideSearchResults();
-            }
-        });
+        searchInput.on('input', processSearchInput);
 });
 
-// Function wrapper to debounce the input event 
-function debounce(func, delay, callback) {
-        let timerId;
-        return function() {
-            clearTimeout(timerId);
-            timerId = setTimeout(() => func.apply(this, arguments), delay);
-        };
+const processSearchInput = debounce(async () => {
+    const searchInput = $('#searchInput');
+    const query = searchInput.val();
+    if(query && query !== '') {
+        const results = await fetchData(query);
+        displaySearchResults(results);
+    } else {
+        hideSearchResults();
     }
+});
 
-// Function to perform AJAX request to server
-function fetchData(query) {
-        console.log("invoking API for ", query);
-        console.log("returning mock data");
-        return mockData;
-        // Perform AJAX request here
-        /*$.ajax({
-            url: 'your_api_endpoint',
-            type: 'GET',
-            data: { query: query },
-            dataType: 'json',
-            success: function(response) {
-                // Process the response
-                console.log(response);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error:', error);
-            }
-        });*/
+
+// Function to debounce API calls
+function debounce(func, delay = 2000){
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => { func.apply(this, args); }, delay);
+    };
+}
+
+
+// Function to fetch Data From Server
+async function fetchData(query) {
+    console.log("invoking API for ", query);
+    console.log("returning mock data");
+    return mockData;
+    // try {
+    //     const response = await fetch(`https://api.example.com/search?q=${query}`);
+    //     const data = await response.json();
+    //     return data;
+    // } catch (error) {
+    //     console.error('Error fetching data:', error);
+    //     return [];
+    // }
 }
 
 function displaySearchResults(results) {
@@ -75,7 +67,7 @@ function displaySearchResults(results) {
         });
         searchResults.appendChild(resultElement);
     });
-    showSearchResults(); // Show search results
+    showSearchResults(); // Show search results once dom populated
 }
 
 function onItemClick(result) {
@@ -89,13 +81,13 @@ function onItemClick(result) {
 function showSearchResults() {
     searchResults.style.display = 'block';
     // Add click event listener to close search results when clicking outside of it
-    document.body.addEventListener('click', clickOutsideHandler);
+    $(document).on('click', clickOutsideHandler);
 }
 
 function hideSearchResults() {
     searchResults.style.display = 'none';
     // Remove click event listener to avoid unnecessary checks
-    document.body.removeEventListener('click', clickOutsideHandler);
+    $(document).off('click', clickOutsideHandler);
 }   
 
 // Click event handler for document body
