@@ -48,7 +48,7 @@ async function fetchData(query) {
     //return mockData;
     try {
         const response = await fetch(`https://hy3z6smgec.execute-api.us-east-1.amazonaws.com/search?q=${query}`); //mock API
-        const data = await response.text();
+        const data = await response.json();
         console.log(data);
         return data;
     } catch (error) {
