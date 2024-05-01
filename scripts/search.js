@@ -59,7 +59,7 @@ async function fetchData(query) {
 
 function displaySearchResults(results) {
     searchResults.innerHTML = '';
-	results = result[0];
+	results = results[0];
     results.forEach(result => {
         const resultElement = document.createElement('div');
         resultElement.textContent = result.title;
